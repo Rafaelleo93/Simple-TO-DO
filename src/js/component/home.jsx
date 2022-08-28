@@ -1,26 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import { TodoForm } from "./TodoForm.jsx";
+import { TodoList } from "./TodoList.jsx";
+import { ItemsLeft } from "./ItemsLeft.jsx";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
-
-//create your first component
 const Home = () => {
-	return (
-		<div className="text-center">
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
-	);
+  const [todo, setTodo] = useState("");
+  const [todos, setTodos] = useState([]);
+  return (
+    <div className="container mt-2" style={{ border: "1px solid black" }}>
+      <div className="tittle">
+        <h1 className="text-white ">
+          <b>To do List</b>
+        </h1>
+      </div>
+      <TodoForm
+        text="Añadir tarea ..."
+        value={todo}
+        setter={setTodo}
+        setterList={setTodos}
+      />
+      {todos.length === 0 ? (
+        <p className="text-white">No hay tareas, añadir tarea.</p>
+      ) : (
+        <TodoList list={todos} setterList={setTodos} />
+      )}
+      <ItemsLeft list={todos} />
+    </div>
+  );
 };
 
 export default Home;
